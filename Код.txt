@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Cadomtev Alex Homework</title>
+      <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js">
+      </script>
+   </head>
+   
+   <body>
+      <h2>Homework</h2>
+      
+      <div ng-app = "mainApp" ng-controller = "workerController">
+         <table border = "0">
+            <tr>
+               <td>Введите имя:</td>
+               <td><input type = "text" ng-model = "worker.firstName"></td>
+            </tr>
+            <tr>
+               <td>Введите фамилию: </td>
+               <td><input type = "text" ng-model = "worker.lastName"></td>
+            </tr>
+            <tr>
+               <td>Введите зарплату: </td>
+               <td><input type = "text" ng-model = "worker.fees"></td>
+            </tr>
+            <tr>
+               <td>Введите тему или зарплату: </td>
+               <td><input type = "text" ng-model = "subjectName"></td>
+            </tr>
+         </table>
+         <br/>
+         
+         <table border = "0">
+            <tr>
+               <td>Введенное имя: </td><td>{{worker.fullName()}}</td>
+            </tr>
+            <tr>
+               <td>Зарплата: </td><td>{{worker.fees | currency:"MDA "}}
+               </td>
+            </tr>
+            <tr>
+               <td>Тема:</td>
+               <td>
+                  <ul>
+                     <li ng-repeat = "subject in worker.subjects | filter: subjectName |orderBy:'salary'">
+                        {{ subject.name + ', salary:' + subject.salary }}
+                     </li>
+                  </ul>
+               </td>
+            </tr>
+         </table>
+      </div>
+      
+      <script>
+         var mainApp = angular.module("mainApp", []);
+         
+         mainApp.controller('workerController', function($scope) {
+            $scope.worker = {
+               firstName: "Alexei",
+               lastName: "Cadomtev",
+               fees:15000,
+               
+               subjects:[
+                  {name:'Front-end',salary:8000},
+                  {name:'Back-end',salary:10000},
+                  {name:'Full stack',salary:15000}
+               ],
+               fullName: function() {
+                  var workerObject;
+                  workerObject = $scope.worker;
+                  return workerObject.firstName + " " + workerObject.lastName;
+               }
+            };
+         });
+      </script>
+      
+   </body>
+</html>
