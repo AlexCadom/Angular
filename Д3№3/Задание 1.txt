@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Cadomtev Alex Homework</title>
+      <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js">
+      </script>
+   </head>
+   
+  <body ng-app="myApp" ng-controller="todoCtrl">
+
+<h2>Students</h2>
+
+<form ng-submit="todoAdd()">
+<input type="text" ng-model="Name" size="30" placeholder="Name">
+<input type="number" min="1" max="10" ng-model="Mark" size="10" placeholder="Mark">
+<input type="submit" value="Add New Student">
+</form>
+
+<div ng-repeat="x in todoList">
+<input type="checkbox" ng-model="x.done"> <span ng-bind="x.Name"></span>, mark:<span ng-bind="x.Mark"></span>
+</div>
+
+<p><button ng-click="remove()">Remove marked</button></p>
+<p><button ng-click="remove_neg()">Remove students with negative mark</button></p>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('todoCtrl', function($scope) {
+$scope.todoList = [{Name:'John', Mark: '8', done:false}];
+
+$scope.todoAdd = function() {
+$scope.todoList.push({Name:$scope.Name, Mark:$scope.Mark, done:false});
+$scope.Name = "";
+$scope.Mark = "";
+};
+
+$scope.remove = function() {
+var oldList = $scope.todoList;
+$scope.todoList = [];
+angular.forEach(oldList, function(x) {
+if (!x.done) $scope.todoList.push(x);
+});
+};
+
+$scope.remove_neg = function() {
+var oldList = $scope.todoList;
+$scope.todoList = [];
+angular.forEach(oldList, function(x) {
+if (x.Mark >= 5) $scope.todoList.push(x);
+});
+};
+});
+</script>
+
+</body>
+</html>
