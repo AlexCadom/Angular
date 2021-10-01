@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+<h1>Формуляр приема на работу</h1>
+<div ng-app = "mainApp" ng-controller = "Controller">
+
+<form name="myForm" novalidate>
+
+<table border = "0">
+<tr>
+<td>Enter first name:</td>
+<td><input type = "text" ng-model = "firstName" required></td>
+</tr>
+<tr>
+<td>Enter last name: </td>
+<td><input type = "text" ng-model = "lastName" required></td>
+</tr>
+<tr>
+<td>Enter date of birth: </td>
+<td><input type="datetime-local" ng-model="date"></td>
+</tr>
+<tr>
+<td><form>
+Click if genderis male:</td>
+<td><input type="checkbox" ng-model="myVar">
+</form></td>
+</tr>
+<tr>
+<td><form>
+Choose education:</td>
+<td><input type="radio" ng-model="myEd" value="secondary">Secondary
+<input type="radio" ng-model="myEd" value="higher">Higher
+<input type="radio" ng-model="myEd" value="master">Master
+<input type="radio" ng-model="myEd" value="doctor">Doctor
+</form></td>
+</tr>
+<tr>
+<td>Department:</td>
+<td><select ng-model="dep" required>
+<option ng-repeat="x in department">{{x}}</option>
+</select></td>
+</tr>
+<tr>
+<td>Salary:</td>
+<td><input type="currency" ng-model="salary" required></td>
+<td><p ng-if="salary < 5000">Вы недооцениваете себя.</p>
+<p ng-if="salary > 20000">Вы переоцениваете себя.</p>
+</td>
+</tr>
+
+</table>
+
+<input type="submit" ng-click="myFunc()" ng-disabled="salary<=4999 || salary>=20000" >
+<button ng-click="reset()">Reset!</button><br>
+</form>
+
+<br/>
+
+<div ng-show="infoForm">
+
+<table border = "0">
+<tr>
+<td>Name: </td><td>{{firstName + " " + lastName}}</td>
+</tr>
+<tr>
+<td>Date of birth: </td><td>{{date | date : "dd MMMM y"}}
+</td>
+</tr>
+<tr>
+<td>Age: </td>
+<td>{{a=(today | date : "yyyy") - (date | date : "yyyy")}}</td>
+<td><p ng-show="a < 18">You must be over 18 years old.</p>
+<p ng-show="a > 65">You must be under 65 years old.</p>
+</td>
+</tr>
+
+<tr><td>Gender:</td>
+<td><p ng-show="myVar">Male</p>
+<p ng-show="!myVar">Female</p></td>
+</tr>
+<tr><td>Education:</td>
+<td><div ng-switch="myEd">
+<div ng-switch-when="secondary">
+Secondary
+</div>
+<div ng-switch-when="higher">
+Higher
+</div>
+<div ng-switch-when="master">
+Master
+</div>
+<div ng-switch-when="doctor">
+Doctor
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td>Department:</td>
+<td>{{ dep }}</td>
+</tr>
+<tr>
+<td>Salary:</td>
+<td>{{ salary | currency:" MDA " }}</td>
+</tr>
+</table>
+</div>
+
+
+<script>
+var mainApp = angular.module("mainApp", []);
+
+mainApp.controller('Controller', function($scope) {
+
+
+$scope.department = ['Programming', 'Business', 'Psychology'];
+
+$scope.infoForm = false;
+$scope.myFunc = function() {
+$scope.infoForm = !$scope.infoForm;
+};
+
+$scope.today = new Date();
+
+$scope.reset = function() {
+$scope.firstName = "";
+$scope.lastName = "";
+$scope.date = "";
+$scope.myEd= "";
+$scope.dep="";
+$scope.myVar="";
+$scope.salary="";
+
+}
+$scope.reset();
+
+});
+</script>
+
+</body>
+</html>
