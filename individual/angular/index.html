@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="private">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Individual work</title>
+    <style>
+        body{
+            background: #222;
+        }
+        div{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+    }
+    .myApp {
+        color:#55d6aa;
+    }
+    input[type="submit"]{
+        background:#55d6aa; 
+        border: none;
+        color: white;
+        padding: 16px 32px;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 10px;   
+    }
+    </style>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>  
+<body>
+<div class="myApp">
+<form ng-app="myApp" ng-controller="validateCtrl" name="myForm" ng-init="myText='Auntification'" novalidate>
+    <center> <h2 ng-bind="myText"></h2></center>
+<p>Username:<br>
+<input type="text" name="user" ng-model="user" required>
+<span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid"><br/>
+<span ng-show="myForm.user.$error.required">Username is required.</span>
+</span>
+</p>
+
+<p>Email:<br>
+<input type="email" name="email" ng-model="email" required>
+<span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid"><br/>
+<span ng-show="myForm.email.$error.required">Email is required.</span><br/>
+<span ng-show="myForm.email.$error.email">Invalid email address.</span>
+</span>
+</p>
+
+<center><p>
+<input type="submit" value="Войти" ng-disabled="myForm.user.$dirty && myForm.user.$invalid ||  
+myForm.email.$dirty && myForm.email.$invalid" onclick="location.href='info.html';">
+</p></center>
+
+</form>
+</div>
+<script>
+var app = angular.module('myApp', []);
+app.controller('validateCtrl', function($scope) {
+    $scope.user = 'Alex Cadomtev';
+    $scope.email = 'fanttommas@gmail.com';
+});
+</script>
+
+</body>
+</html>

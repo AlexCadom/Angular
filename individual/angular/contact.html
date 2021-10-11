@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <title>Admin Page</title>
+    <style>
+       @import url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');
+body {
+	margin: 0;
+	background: #222;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 800;
+}
+
+.container {
+	width: 80%;
+	margin: 0 auto;
+}
+
+header {
+  background: #55d6aa;
+}
+
+header::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.logo {
+  float: left;
+  padding: 10px 0;
+}
+
+nav {
+  float: right;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav li {
+  display: inline-block;
+  margin-left: 70px;
+  padding-top: 23px;
+
+  position: relative;
+}
+
+nav a {
+  color: #444;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: #000;
+}
+
+nav a::before {
+  content: '';
+  display: block;
+  height: 5px;
+  background-color: #444;
+
+  position: absolute;
+  top: 0;
+  width: 0%;
+
+  transition: all ease-in-out 250ms;
+}
+
+nav a:hover::before {
+  width: 100%;
+}
+.contact{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        color:#55d6aa;
+        
+}
+.signUpForm, .signInForm, .accounts {
+    display: none;
+    position: absolute;
+    bottom: 40%;
+    left: 30%;
+    min-width: 40vw;
+    min-height: 40vh;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    background-color: rgba(250, 212, 241, 0.836);
+}
+.signInButt {
+    background-color: green;
+}
+.signInButt:hover {
+    background-color: rgb(1, 73, 1);
+}
+.logOutButt {
+    background-color: rgb(179, 0, 0);
+}
+.logOutButt:hover {
+    background-color: rgb(112, 0, 0);
+}
+.close {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    font-size: 20px;
+    border: 1px solid black;
+    border-radius: 30%;
+    background-color: rgb(70, 43, 43);
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.close:hover {
+    background-color: rgb(116, 70, 70);
+}
+.overflow {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.575);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 1;
+}
+.signUpButt {
+  cursor: pointer;
+}
+
+    </style>
+</head>
+<body ng-controller="hosCtrl">
+    <header>
+        <div class="container">
+          <h1 class="logo"></h1>
+    
+          <nav>
+            <ul>
+                <li><a href="info.html">Home</a></li>
+                <li><a href="raspisanie.html">Timetable</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="signUpButt" ng-show="!isSignIn">Sign up</li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+       <!-- Sign UP -->
+       <div class="overflow" id="overflow"></div>
+    <div class="signUpForm" id="signUpForm" ng-init="isSingIn = false">
+        <span class="close">x</span>
+        <form ng-submit="signUp()">
+            <h1>Регистрация</h1>
+            <label for="su_login">Логин: </label><input type="text" id="su_login" ng-model="su_inputLogin" required><br>
+            <label for="su_pass">Пароль: </label><input type="password" id="su_pass" ng-model="su_inputPass" required><br>
+            <input type="submit" value="Зарегистрироваться">
+        </form>
+    </div>
+      <div class ="contact">
+      <h1>Наши контакты:</h1>
+        <p>Телефон: 8(4308)008-61-53</p>
+        <p>Адрес: Strada Piața Gării 2</p>
+        <p>E-mail: paravozikTomas@tutu.com</p>
+    </div>
+    <script>
+    var app = angular.module('train', []);
+    app.controller('hosCtrl', function($scope) {
+      $scope.su_inputLogin = $scope.su_inputPass = "";
+      $scope.signUp = function() {
+            $scope.accounts.push({
+                login: $scope.su_inputLogin,
+                password: $scope.su_inputPass,
+                isSignIn: false,
+                edit: false
+            });
+        };
+      })
+      document.getElementById('signUpForm').style.display = "none";
+            document.getElementById('overflow').style.display = "none";
+
+      $(document).ready(function(){
+        $('.signUpButt').click(function(){
+            $('.signUpForm').show();
+            $('.overflow').show();
+        })
+
+        $('.close').click(function(){
+            $('.signUpForm').hide();
+            $('.signInForm').hide();
+            $('.accounts').hide();
+            $('.overflow').hide();    
+
+        });
+    });
+    </script>
+    
+</body>
+</html>

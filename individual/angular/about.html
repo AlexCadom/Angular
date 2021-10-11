@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <title>About</title>
+    <style>
+       @import url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');
+body {
+	margin: 0;
+	background: #222;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 800;
+}
+
+.container {
+	width: 80%;
+	margin: 0 auto;
+}
+
+header {
+  background: #55d6aa;
+}
+
+header::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.logo {
+  float: left;
+  padding: 10px 0;
+}
+
+nav {
+  float: right;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav li {
+  display: inline-block;
+  margin-left: 70px;
+  padding-top: 23px;
+
+  position: relative;
+}
+
+nav a {
+  color: #444;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: #000;
+}
+
+nav a::before {
+  content: '';
+  display: block;
+  height: 5px;
+  background-color: #444;
+
+  position: absolute;
+  top: 0;
+  width: 0%;
+
+  transition: all ease-in-out 250ms;
+}
+
+nav a:hover::before {
+  width: 100%;
+}
+.container1{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        color:#55d6aa;
+        
+}
+
+    </style>
+</head>
+<body ng-app="mainApp" ng-controller="myCtrl">
+    <header>
+        <div class="container">
+          <h1 class="logo"></h1>
+    
+          <nav>
+            <ul>
+                <li><a href="info.html">Home</a></li>
+                <li><a href="raspisanie.html">Timetable</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="home.html">Bye</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <div ng-app="myApp">
+      <!-- directive: w3-test-directive -->
+    </div>
+        <p ng-click=""></p>
+
+      <div class="container1">
+      <h1>История сайта</h1>
+        <p ng-mouseover = "count = count + 1" ng-copy="count = count + 1" ng-cut="count = count + 1" ng-init="count=0">В 1846 году бельгийский инженер Зюбер начал разработку первоначального проекта железной дороги между Одессой, 
+            Тирасполем и Парканами. Строительство железнодорожной ветки к Тирасполю началось во второй половине 60-х годов XIX века. В 1867 году была проложена железная дорога от станции Раздельная до станции Тирасполь,</p>
+            <span ng-non-bindable>ng-non-bindable: {{count}}</span>
+            copy count: {{count}}
+            <br/>
+            <p>Курсы валют</p>
+            <div>
+                <label>Enter amount:</label>
+                <br/>
+                <input type="text" ng-model="amount" />
+                <br/>
+              </div>
+              <div>
+                Select 'From' currency:
+                <select ng-model="myVar">
+                  <option ng-repeat="fromCurrency in fromCurrencyList" value="{{fromCurrency.code}}">
+                    {{fromCurrency.code}}
+                  </option>
+                </select>
+              </div>
+              <br/>
+              <div>
+                Select 'To' currency:
+                <select ng-model="myVar2">
+                  <option ng-repeat="toCurrency in toCurrencyList" value="{{toCurrency.code}}">
+                    {{toCurrency.code}}
+                  </option>
+                </select>
+              </div>
+              <br/>
+              <div>
+                <button ng-click="convert()">Convert</button>
+                {{output}}
+              </div>
+            
+              <hr />
+              <br/>
+            
+              <div>
+                <input ng-model="newCurrency" placeholder="newCurrency" />
+                <input ng-model="newValue" placeholder="newValue" />
+                <button ng-click="addFromCurrency()">Add to Currency List</button>
+              </div>
+              <br/>
+              <form>
+                Choose your ticket:</td>
+                <td><input type="radio" ng-model="myEd" value="secondary">Low
+                <input type="radio" ng-model="myEd" value="higher">Middle
+                <input type="radio" ng-model="myEd" value="master">High
+                </form>
+            </div>
+        </div>
+      <script>
+          var app = angular.module('mainApp', []);
+
+          app.directive('firstDirective',function(){
+              function linkedFunktion($scope,element,attributes){
+                  $scope.text = "Hi there..";
+                  $scope.changeText = function(newText){
+                      $scope.text = newText;
+                  }
+                  }
+                  return{
+                      link:linkedFunction,
+                      template:'<span ng-click="changeText(\'Welcome to my site\')">Current Text:{{text}}</span>',
+                      restrict:'A'
+                  };
+                });
+                
+              app.controller('myController',function(){
+
+          });
+        var app = angular.module('mainApp', []);
+            app.controller('myCtrl', function($scope) {
+            $scope.toCurrencyList = [{
+                code: "inr"
+            }]
+            $scope.fromCurrencyList = [];
+            $scope.fromCurrencyList.push({
+                code: "usd",
+                value: 70
+            });
+            $scope.fromCurrencyList.push({
+                code: "eur",
+                value: 60
+            });
+            $scope.fromCurrencyList.push({
+                code: "gbp",
+                value: 80
+            });
+            
+            $scope.myVar = "usd";
+            $scope.myVar2 = "inr";
+            $scope.newFromCurrency = "";
+            $scope.newValue = "";
+            $scope.output = "";
+            
+            $scope.convert = function() {
+                for (var currencyIndex in $scope.fromCurrencyList) {
+                if ($scope.myVar == $scope.fromCurrencyList[currencyIndex].code) {
+                    $scope.output = $scope.amount + "" + $scope.fromCurrencyList[currencyIndex].code + " equals " + $scope.amount * $scope.fromCurrencyList[currencyIndex].value + "" + $scope.myVar2;
+                    alert($scope.output);
+                }
+                }
+            }
+
+            $scope.addFromCurrency = function() {
+                var newFromCurrency = {};
+                newFromCurrency.code = $scope.newCurrency;
+                newFromCurrency.value = $scope.newValue;
+                $scope.fromCurrencyList.push(newFromCurrency)
+            }
+            });
+          
+      </script>
+</body>
+</html>

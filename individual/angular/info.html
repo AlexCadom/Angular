@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <title>Info</title>
+    <style>
+       @import url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');
+body {
+	margin: 0;
+	background: #222;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 800;
+}
+
+.container {
+	width: 80%;
+	margin: 0 auto;
+}
+
+header {
+  background: #55d6aa;
+}
+
+header::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.logo {
+  float: left;
+  padding: 10px 0;
+}
+
+nav {
+  float: right;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav li {
+  display: inline-block;
+  margin-left: 70px;
+  padding-top: 23px;
+
+  position: relative;
+}
+
+nav a {
+  color: #444;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: #000;
+}
+
+nav a::before {
+  content: '';
+  display: block;
+  height: 5px;
+  background-color: #444;
+
+  position: absolute;
+  top: 0;
+  width: 0%;
+
+  transition: all ease-in-out 250ms;
+}
+
+nav a:hover::before {
+  width: 100%;
+}
+.container1{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        color:#55d6aa;
+        
+}
+
+    </style>
+</head>
+<body ng-app="app">
+    <header>
+        <div class="container">
+          <h1 class="logo"></h1>
+    
+          <nav>
+            <ul>
+              <li><a href="info.html">Home</a></li>
+              <li><a href="raspisanie.html">Timetable</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <div ng-controller="ctrlName">
+        <div class="container1">
+          
+          
+          <center><h2>On this page you can see info about our site , and also you can add preferable timetable</h2></center>
+          <br/>
+          <br/>
+          <p>A train station, railway station, railroad station or depot is a railway facility or area where trains regularly stop to load or unload passengers, freight or both. It generally consists of at least one track-side platform and a station building (depot) providing such ancillary services as ticket sales, waiting rooms and baggage/freight service. If a station is on a single-track line, it often has a passing loop to facilitate traffic movements.
+
+            Places at which passengers only occasionally board or leave a train, sometimes consisting of a short platform and a waiting shed but sometimes indicated by no more than a sign, are variously referred to as "stops", "flag stops", "halts", or "provisional stopping places".
+            
+            Stations may be at ground level, underground or elevated. Connections may be available to intersecting rail lines or other transport modes such as buses, trams or other rapid transit systems.</p>
+          <br/>
+          <center><p>All trains:</p>
+          <div ng-app="app" ng-controller="ctrlName">
+
+            <ul>
+            <li ng-repeat="x in train | orderBy">{{x}}</li>
+            </ul>
+            
+            </div>
+          </center>
+          <br/>
+     <center> <p>Today:<input type="date" class="form-control" ng-model="dt" ng-focus="displayDate()" ng-blur="hideDate()" /></p><br/>
+      
+      <form ng-submit="todoAdd()">
+        <input type="text" ng-model="country" size="30" placeholder="country">
+        <input type="number" min="0" max="24" ng-model="time" size="10" placeholder="time">
+        <input type="submit" value="Add New Timetable" ng-click="alert()">
+        </form>
+        
+        <div ng-repeat="x in todoList">
+        <input type="checkbox" ng-model="x.done"> <span ng-bind="x.country"></span>, time:<span ng-bind="x.time"></span>
+        </div>
+        
+        <p><button ng-click="remove()">Remove marked</button></p>
+        
+        </div>
+      </center>
+      </div>
+    
+      <script>
+        var app = angular.module("app", []);
+        app.controller('ctrlName', ['$scope', function ($scope) {
+            $scope.displayDate = function () {
+                $scope.dt = new Date();
+            };
+            $scope.hideDate = function () {
+                $scope.dt = null;
+            };
+            $scope.todoList = [{country:'Moscow', time: '8', done:false}];
+
+            $scope.todoAdd = function() {
+            $scope.todoList.push({country:$scope.country, time:$scope.time, done:false});
+            $scope.country = "";
+            $scope.time = "";
+            };
+
+            $scope.remove = function() {
+            var oldList = $scope.todoList;
+            $scope.todoList = [];
+            angular.forEach(oldList, function(x) {
+            if (!x.done) $scope.todoList.push(x);
+            });
+            };
+            $scope.alert = function () {
+                alert("Thanks for adding");
+            }
+            $scope.train = ["Eurostar", "Thalys", "AVE S-101", "KTX-I", "Amtrak Acela Express"];
+        }]);
+    </script>
+</body>
+</html>
