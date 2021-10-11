@@ -126,6 +126,8 @@ nav a:hover::before {
 
             <ul>
             <li ng-repeat="x in train | orderBy">{{x}}</li>
+		    <hr>
+            <li ng-repeat="x in train | filter : 'e'">{{ x }}</li>
             </ul>
             
             </div>
